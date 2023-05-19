@@ -1,0 +1,91 @@
+protocol = "kds-legato100"
+doc = ""
+traits = ["has-limits", "has-position", "uses-serial", "uses-uart", "is-daemon"]
+
+[links]
+source = "https://github.com/yaq-project/yaqd-kds"
+bugtracker = "https://github.com/yaq-project/yaqd-kds/-/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-kds"
+
+[config]
+
+[config.address]
+doc = "Pump address: (00 to 99), default 0"
+type = "int"
+default = 0
+
+[config.force]
+doc = "percentage fo max force applied (integer percents only), default 1%"
+type = "int"
+default = 1
+
+[config.brightness]
+doc = "percentage of max brightness(integer percents only), default 100%"
+type = "int"
+default = 100
+
+[config.resume]
+doc = "resume after power loss when set to true, default true"
+type = "boolean"
+default = true
+
+[config.rate]
+doc = "between 25.0404 nl/min to 26.0035 ml/min"
+type = "int"
+
+[state]
+
+[messages]
+
+[messages.purge]
+doc = "empty syringe"
+request = []
+
+[messages.prime]
+doc = "fully withdraw the syringe"
+request = []
+
+[messages.run]
+doc = "runs the currently loaded program"
+request = []
+
+[messages.stop]
+doc = "stops the current run"
+request = []
+
+[messages.get_rate]
+doc = "get the rate that the motor is running at"
+request = []
+response = "string"
+
+[messages.set_infuse_rate]
+doc = "get the rate that the motor is running at"
+request = [{"name"="infuse_rate", "type"="int"}]
+response = "string"
+
+[messages.get_force]
+doc = "get the force percentage that the motor is running at"
+request = []
+response = "string"
+
+[messages.set_force]
+doc = "set the force percentge that the motor is running at"
+request = [{"name"="force", "type"="int"}]
+response = "string"
+
+[messages.get_diameter]
+doc = "get the diameter that the motor is running at"
+request = []
+response = "string"
+
+[messages.set_diameter]
+doc = "set the diameter that the motor is running at"
+request = [{"name"="diameter", "type"="int"}]
+response = "string"
+
+[messages.set_brightness]
+doc = "set the brightness of the display 0 to 100%"
+request = [{"name"="brightness", "type"="int"}]
+response = "string"
