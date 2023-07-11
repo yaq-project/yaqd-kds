@@ -3,11 +3,11 @@ import serial
 
 # configure the serial connections (the parameters differs on the device you are connecting to)
 ser = serial.Serial(
-    port='com3',
+    port="com3",
     baudrate=115200,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
-    bytesize=serial.EIGHTBITS
+    bytesize=serial.EIGHTBITS,
 )
 
 ser.isOpen()
@@ -18,30 +18,29 @@ odd = True
 input = 1
 while 1:
     # get keyboard input
-    #input = raw_input(">> ")
+    # input = raw_input(">> ")
     # Python 3 users
     # input = input(">> ")
     if odd:
-        input = 'run'
+        input = "run"
         odd = False
     else:
-        input = 'stop'
+        input = "stop"
         odd = True
-    if input == 'exit':
+    if input == "exit":
         ser.close()
         exit()
     else:
         # send the character to the device
         # (note that I happend a \r\n carriage return and line feed to the characters - this is requested by my device)
-        ser.write((input + ''
-                           '').encode())
-        print((input + '\r\n').encode())
-        out = ''
+        ser.write((input + "" "").encode())
+        print((input + "\r\n").encode())
+        out = ""
         # let's wait one second before reading output (let's give device time to answer)
         time.sleep(1)
         while ser.inWaiting() > 0:
             out += ser.read(1)
 
-        if out != '':
+        if out != "":
             print
             ">>" + out

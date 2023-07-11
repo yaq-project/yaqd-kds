@@ -13,12 +13,17 @@ class KdsLegato100(UsesUart, UsesSerial, HasLimits, HasPosition, IsDaemon):
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
         # Perform any unique initialization
-        self._ser = aserial.ASerial(port=self._config["serial_port"], baudrate=self._config["baud_rate"], parity=serial.PARITY_NONE,stopbits=serial.STOPBITS_ONE,bytesize=serial.EIGHTBITS)
-        #self._ser.stopbits=1
-
+        self._ser = aserial.ASerial(
+            port=self._config["serial_port"],
+            baudrate=self._config["baud_rate"],
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            bytesize=serial.EIGHTBITS,
+        )
+        # self._ser.stopbits=1
 
     def run(self):
-        #self._ser(f"{self._config['address']} run\r".encode())
+        # self._ser(f"{self._config['address']} run\r".encode())
         print("start the currently loaded program")
         self._ser.write("run\r\n".encode())
         print("run\r\n".encode())
@@ -32,7 +37,6 @@ class KdsLegato100(UsesUart, UsesSerial, HasLimits, HasPosition, IsDaemon):
         self._ser.write(message)
         print(message)
 
-
     def purge(self):
         print("empty the syringe")
         raise NotImplementedError
@@ -44,49 +48,49 @@ class KdsLegato100(UsesUart, UsesSerial, HasLimits, HasPosition, IsDaemon):
     def stop(self):
         print("stop the pump!")
         self._ser.write("stop\r\n".encode())
-        #print("stop\r\n".encode())
+        # print("stop\r\n".encode())
 
     def get_rate(self):
         print("get the current rate")
         self._ser.write("crate\r\n".encode())
-        #read_val = self._ser.read(size=8)
-        #print(read_val)
+        # read_val = self._ser.read(size=8)
+        # print(read_val)
 
     def set_infuse_rate(self, infuse_rate):
         self._ser.write(f"irate {infuse_rate}\r\n".encode())
-        #read_val = self._ser.read(size=8)
-        #print(read_val)
+        # read_val = self._ser.read(size=8)
+        # print(read_val)
 
     def get_force(self):
         print("get the current rate")
         raise NotImplementedError
         self._ser.write("force\r\n".encode())
-        #read_val = self._ser.read(size=8)
-        #print(read_val)
+        # read_val = self._ser.read(size=8)
+        # print(read_val)
 
     def set_force(self, force):
         self._ser.write(f"force {force}\r\n".encode())
-        #read_val = self._ser.read(size=8)
-        #print(read_val)
+        # read_val = self._ser.read(size=8)
+        # print(read_val)
 
     def get_diameter(self):
         print("get the current rate")
         raise NotImplementedError
         self._ser.write("diameter\r\n".encode())
-        #read_val = self._ser.read(size=8)
-        #print(read_val)
+        # read_val = self._ser.read(size=8)
+        # print(read_val)
 
     def set_diameter(self, diameter):
         print("setting diameter to {diameter} mm")
         self._ser.write(f"diameter {diameter}\r\n".encode())
-        #read_val = self._ser.read(size=8)
-        #print(read_val)
+        # read_val = self._ser.read(size=8)
+        # print(read_val)
 
     def set_brightness(self, brightness):
         print("setting diameter to {diameter} mm")
         self._ser.write(f"dim {brightness}\r\n".encode())
-        #read_val = self._ser.read(size=8)
-        #print(read_val)
+        # read_val = self._ser.read(size=8)
+        # print(read_val)
 
     async def update_state(self):
         """Continually monitor and update the current daemon state."""
